@@ -1,4 +1,4 @@
-package n;
+package sort.n;
 
 import util.BaseUtil;
 
@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 /**
  * 计数排序
- * O(n+k) k 代表数据范围 n代表均分的桶
+ * O(sort.n+k) k 代表数据范围 n代表均分的桶
  * 适用范围
  * 数据量不大即:k不能远大于n
  * 数据分布较为均匀 如果要统计非负整数之外的类型数据就要转换为整型数据 增大了n的个数

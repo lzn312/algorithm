@@ -1,4 +1,4 @@
-package nlogn;
+package sort.nlogn;
 
 import util.BaseUtil;
 
@@ -6,13 +6,13 @@ import java.util.Arrays;
 
 /**
  * 归并排序
- * nlogn
+ * sort.nlogn
  * 核心思想:
  * 1.拆分后进行数据合并
  * 2.把排好序的数据进行比较
  * 递归核心思想:
  * 1.确定终止条件 q>=r
- * 2.确定递归表达式 merge(n) = merge(q,n/2)+merge(n/2+1,n)
+ * 2.确定递归表达式 merge(sort.n) = merge(q,sort.n/2)+merge(sort.n/2+1,sort.n)
  **/
 public class MergeSort {
 
@@ -75,7 +75,7 @@ public class MergeSort {
             }
         }
 
-        //因为数组归并最小值组合为[1] [2] 或者[2] [1] 所以比较数组一定是有序的 故可以直接往里面添加没有比较玩的数据
+        //因为数组归并最小值组合为[1] [2] 或者[2] [1] 所以比较数组一定是有序的 故可以直接往里面添加没有比较完的数据
         int start = j;
         int end = p;
         if (k <= r) {

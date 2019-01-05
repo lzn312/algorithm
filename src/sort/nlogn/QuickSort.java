@@ -1,4 +1,4 @@
-package nlogn;
+package sort.nlogn;
 
 import util.BaseUtil;
 
@@ -8,8 +8,8 @@ import java.util.Arrays;
  * 快速排序
  * 用于数据量比较大
  * 但是当原数据接近有序亦或有序
- * 最坏时间复杂度可到O(n²)
- * 平均时间复杂度为O(nlogn)
+ * 最坏时间复杂度可到O(sort.n²)
+ * 平均时间复杂度为O(sort.nlogn)
  * 核心思想:
  * 和归并排序有不同
  * 快速排序是先排序然后在继续分类
