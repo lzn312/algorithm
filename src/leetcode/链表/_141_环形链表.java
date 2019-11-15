@@ -4,7 +4,7 @@ package leetcode.链表;
  **/
 public class _141_环形链表 {
 
-    public  class ListNode {
+     private class ListNode {
         int val;
         ListNode next;
         ListNode(int x) {

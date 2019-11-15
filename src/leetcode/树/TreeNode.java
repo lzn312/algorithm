@@ -1,7 +1,7 @@
 package leetcode.树;
 
 public class TreeNode {
-    int val;
+    public int val;
     public TreeNode left;
     public TreeNode right;
 
