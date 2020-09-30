@@ -40,10 +40,36 @@ public class _53_最大子序和 {
         }
         return ans;
     }
+    /**
+     * 其实这题应该也是可以用动态方程来做可能更好理解
+     * 假设dp[i]表示前i天最大的收益率那么这一题就转换为求动态方程了
+     * 如果 dp[i-1]+nums[i] > 0
+     *  dp[i] = max(dp[i-1], dp[i-1]+nums[i])
+     *  否则
+     *  dp[i] = max(dp[i-1],nums[i])
+     **/
+    public static int maxSubArrayByDp(int[] nums) {
+        if (nums.length < 1) throw new IllegalArgumentException("nums 为空");
+        if (nums.length == 1) return nums[0];
+        int[] dp = new int[nums.length];
+        // 因为第0天使第一天的收益金额
+        dp[0] = nums[0];
+        for (int i = 1; i< nums.length;i++){
+            if(dp[i-1] + nums[i] > 0){
+                dp[i] = Math.max(dp[i-1], dp[i-1] + nums[i]);
+            }else {
+                dp[i] = nums[i];
+            }
+
+
+        }
+       return dp[nums.length -1];
+    }
 
     public static void main(String[] args) {
         int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, -2, 4, -5, -7, -3};
         int[] nums1 = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
         System.out.println(maxSubArray(nums1));
+        System.out.println(maxSubArrayByDp(nums1));
     }
 }

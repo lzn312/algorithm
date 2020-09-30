@@ -57,11 +57,16 @@ public class QuickSort {
         int index = q;
         //进行排序,默认交换
         for (int i = q; i <= r -1 ; i++){
+
             if (discorded[i] <= pivot){
-                int tmp = discorded[index];
-                discorded[index] = discorded[i];
-                discorded[i] = tmp;
-                index++;
+                if (i == index){
+                    ++index;
+                }else {
+                    int tmp = discorded[index];
+                    discorded[index] = discorded[i];
+                    discorded[i] = tmp;
+                    index++;
+                }
             }
         }
         //排序完成之后需要把端点放入中间 区分左边和右边

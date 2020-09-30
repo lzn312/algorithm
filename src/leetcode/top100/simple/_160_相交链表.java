@@ -88,6 +88,7 @@ public class _160_相交链表 {
         if (headA == null || headB == null) return null;
         ListNode preA = headA;
         ListNode preB = headB;
+        // 最坏情况两个指针都指向null所以一定会相等
         while (preA !=  preB){
             preA = preA == null ? headB : preA.next;
             preB = preB == null ? headA : preB.next;

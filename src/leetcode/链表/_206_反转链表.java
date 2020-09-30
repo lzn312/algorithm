@@ -26,7 +26,8 @@ public class _206_反转链表 {
     // 递归
     public  ListNode reverseList(ListNode head) {
         // 只有一个节点或者head为空 那么就返回本身就行
-        if (head == null || head.next == null) return head;
+        if (head == null || head.next == null)
+            return head;
         ListNode newHead = reverseList(head.next);
         head.next.next = head;
         head.next = null;

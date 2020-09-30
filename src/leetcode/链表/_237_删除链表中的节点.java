@@ -13,7 +13,9 @@ public class _237_删除链表中的节点 {
     }
     // 只给了需要删除的节点 我们能拿到删除节点的next节点。 把next节点的值覆盖掉当前节点 然后把当前next节点指向next.next节点就行
     public void deleteNode(ListNode node) {
-        node.val = node.next.val;
-        node.next = node.next.next;
+        ListNode nextNode = node.next;
+        node.val = nextNode.val;
+        node.next = nextNode.next;
+        nextNode.next = null;
     }
 }

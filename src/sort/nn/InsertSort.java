@@ -23,11 +23,12 @@ public class InsertSort {
                 if (nums[j] > value){
                     // 如果数据比他大就要留位置给它
                     nums[j+1] = nums[j];
+                    // 运行到这就经历了j--;
                 }else {
                     break;
                 }
             }
-            // 因为跳出循环之后j就是已排序空间中比他小的那个下标,所以要j+1插入进去
+            // 因为跳出循环之后j就是已排序空间中比他小的那个下标,所以要j+1插入进去 所以这里的j +1 其实就是 (j--)+1 = j
             nums[j+1] = value;
         }
         return nums;

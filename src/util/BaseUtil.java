@@ -21,9 +21,9 @@ public class BaseUtil {
             throw new IllegalArgumentException("最大值不合理");
         }
 
-        int[] result = new int[size + 1];
+        int[] result = new int[size];
         Random random = new Random();
-        for (int i = 0; i <= size; i++) {
+        for (int i = 0; i < size; i++) {
             result[i] = random.nextInt(maxValue);
         }
 
