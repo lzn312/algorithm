@@ -36,6 +36,7 @@ public class _350_两个数组的交集II {
 
     /**
      * 如果一次性加载的做法，可以是把数据转换为map，然后
+     * 通过对比两个数组只之间是否存在相同的元素，如果存在的话就把和累加
      **/
     public static int[] intersect1(int[] nums1, int[] nums2) {
         Map<Integer, Integer> integerMap = Arrays.stream(nums1)
