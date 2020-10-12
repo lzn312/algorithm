@@ -29,9 +29,38 @@ public class _189_旋转数组 {
 
 
     /**
-     * 使用环状替换
+     * 使用环状替换,这种思路相对来说理解起来比较困难。
+     * 因为环状替换有一个问题就是结束位应该如何确定。
+     * 这个问题就像换座位，先进行第一次换座位，然后发现这个位置有人做了，
+     * 我们就把当前坐的人拿出来，然后在进行一次换座位，当换座位的位置回到了起始位置，说明座位已经换完。
+     * 这个时候我们就可以结束了。
      **/
     static void rotate1(int[] nums, int k) {
+        // 防止K超出nums的长度
+        k %= nums.length;
+
+        // 用来代表，n个同学需要换n次位置，才代表替换完成
+        int count = 0;
+
+        for (int start = 0; count < nums.length; start++) {
+            // 获取当前需要替换的位置
+            int current = start;
+            int prev = nums[start];
+            do {
+                // 获取下一个需要替换的位置
+                int next = (current + k) % nums.length;
+                int temp = nums[next];
+                nums[next] = prev;
+                prev = temp;
+                // 下一个替换的位置
+                current = next;
+                // count++代表这个元素替换的次数
+                count++;
+            }while (// 如果相等说明已经换完一圈了
+                    start != current);
+
+
+        }
 
     }
 
@@ -77,5 +106,14 @@ public class _189_旋转数组 {
         int k1 = 2;
         rotate2(nums2, k1);
         System.out.println(Arrays.toString(nums2));
+
+
+        int[] nums3 = {1,2,3,4,5,6,7};
+        rotate1(nums3, k);
+        System.out.println(Arrays.toString(nums3));
+
+        int[] nums4 = {-1,-100,3,99};
+        rotate1(nums4, k1);
+        System.out.println(Arrays.toString(nums4));
     }
 }
