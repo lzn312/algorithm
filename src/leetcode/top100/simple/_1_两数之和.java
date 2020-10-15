@@ -23,7 +23,7 @@ public class _1_两数之和 {
     /**
      * 这题刷过,可以使时间复杂度控制在O(n) 空间复杂度控制在O(1)
      * 这题就是单纯的实现逻辑，不涉及使用什么算法
-     * 使用hashMap完成
+     * 使用hashMap完成,key为target - nums[i] ,val 为: i 如果存在key，则输出当前i和val就行。
      **/
     public int[] twoSum(int[] nums, int target) {
 
