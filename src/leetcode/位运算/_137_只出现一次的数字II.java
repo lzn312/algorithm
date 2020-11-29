@@ -1,38 +1,23 @@
 package leetcode.位运算;
 
-import java.util.stream.IntStream;
-
 /**
- * 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现了三次。找出那个只出现了一次的元素。
- *
- * 说明：
- *
- * 你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
- *
- * 示例 1:
- *
- * 输入: [2,2,3,2]
- * 输出: 3
- * 示例 2:
- *
- * 输入: [0,1,0,1,0,1,99]
- * 输出: 99
- *
+ * @author Leezer
+ * @date 2020/11/23 9:51 上午
  **/
 public class _137_只出现一次的数字II {
 
-
-
-    // 这题位运算搞不懂，但是有数学解法可以完成，例如，如果其余数都是n次，只有一个数出现，那么满足 (n * （a,b,c) - nums) / n就为该数
-    public static int singleNumber(int[] nums) {
-
-        int res = IntStream.of(nums).distinct().sum();
-        int re = IntStream.of(nums).sum();
-        return (3 *  res  - re )/ 2;
+    public int singleNumber(int[] nums) {
+        int a = 0, b = 0;
+        for (int next : nums) {
+            b = (b ^ next) & ~a;
+            a = (a ^ next) & ~b;         }
+        return b;
     }
 
+
     public static void main(String[] args) {
-        System.out.println(singleNumber(new int[]{2,2,3,2}));
-        System.out.println(singleNumber(new int[]{0,1,0,1,0,1,99}));
+        _137_只出现一次的数字II  test = new _137_只出现一次的数字II();
+
+        System.out.println(test.singleNumber(new int[]{1,1,1,2}));
     }
 }

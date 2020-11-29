@@ -1,7 +1,7 @@
 package leetcode.滑动窗口;
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 给定一个字符串 s 和一个非空字符串 p，找到 s 中所有是 p 的字母异位词的子串，返回这些子串的起始索引。
@@ -39,10 +39,57 @@ import java.util.*;
  **/
 public class _438_找到字符串中所有字母异位词 {
 
-    public List<Integer> findAnagrams(String s, String p) {
+    public List<Integer> findAnagrams(String s, String p ) {
+        if (s == null || p == null || s.isEmpty() || p.isEmpty() || s.length() < p.length()) {
+            return new ArrayList<>();
+        }
+
         List<Integer> result = new ArrayList<>();
-        Queue<Character> queue  = new ArrayDeque<>(p.length());
-        return null;
+        // 构建数据索引
+        int[] pArray = new int[26], sArray = new int[26];
+
+        // 构建初始映射表
+        for (int i = 0; i < p.length(); i++) {
+            pArray[p.charAt(i) - 'a' ]++;
+            sArray[s.charAt(i) - 'a' ]++;
+        }
+
+        int left = 0;
+        int right = p.length();
+
+
+        while (right < s.length()) {
+            if (isSame(pArray, sArray)) {
+                result.add(left);
+            }
+
+            sArray[s.charAt(right) - 'a']++;
+            sArray[s.charAt(left) - 'a']--;
+
+            left++;
+            right++;
+        }
+
+
+        if (isSame(pArray, sArray)) {
+            result.add(left);
+        }
+        return result;
+
     }
 
+    private boolean isSame(int[] pArray, int[] sArray) {
+        for (int i = 0; i < pArray.length; i++) {
+            if (pArray[i] != sArray[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public static void main(String[] args) {
+        _438_找到字符串中所有字母异位词 test = new _438_找到字符串中所有字母异位词();
+        System.out.println(test.findAnagrams("aa", "bb"));
+    }
 }
