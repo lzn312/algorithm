@@ -32,6 +32,40 @@ public class _861_翻转矩阵后的得分 {
         return result;
     }
 
+    // 改变原数组解法
+    public static int matrixScore1(int[][] A) {
+
+        if (A.length == 0 )
+            return 0;
+
+        for (int row = 0; row < A.length; row++) {
+            if (A[row][0] == 0){
+                for (int i = 0; i < A[row].length; i++) {
+                    A[row][i] ^= 1;
+                }
+            }
+        }
+
+
+
+
+        // 我们先把每一行的第一位置位1，则一定是至多的数,我们可以默认第一位都为1
+        int result = A.length * (1<<(A[0].length - 1 ));
+        // 我们统计出来每一列的0和1个数，最大的相加就是其最大值
+        for (int i = 1; i < A[0].length; i++) {
+            int count = 0;
+
+            for (int[] ints : A) {
+                if (ints[i] == 1) {
+                    count++;
+                }
+            }
+            // 取出0和1的个数最大值 * 该为的原始值
+            result += Math.max(count, A.length - count) * (1<<(A[0].length - 1 - i));
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         int[][] asp = new int[3][3];
         asp[0] = new int[]{0,0,1,1};
@@ -39,6 +73,7 @@ public class _861_翻转矩阵后的得分 {
         asp[2] = new int[]{1,1,0,0};
 
         System.out.println(matrixScore(asp));
+        System.out.println(matrixScore1(asp));
 
     }
 }
