@@ -1,4 +1,7 @@
 package leetcode.链表;
+
+import java.util.List;
+
 /**
  * https://leetcode-cn.com/problems/reverse-linked-list/
  **/
@@ -32,6 +35,26 @@ public class _206_反转链表 {
         head.next.next = head;
         head.next = null;
         return newHead;
+    }
+
+
+    public ListNode reverseList1(ListNode head) {
+        // 使用哨兵节点来完成
+        ListNode prev = null;
+        ListNode curr =  head;
+
+        while(curr != null){
+            // 找出下一个节点指针
+            ListNode temp = curr.next;
+            // 把当前指正的下一节点指向上一节点
+            curr.next = prev;
+            // 上一节点就是当前节点
+            prev = curr;
+            // 当前节点指向下一节点
+            curr = temp;
+        }
+
+        return prev;
     }
 
 
