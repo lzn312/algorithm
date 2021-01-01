@@ -13,28 +13,38 @@ public class TwoStackCompositeQueue<E> {
         this.inStack = inStack;
         this.outStack = outStack;
     }
-    public void push(E e){
+
+    public void push(E e) {
         inStack.push(e);
     }
-    public void offer(E  e){
+
+    public void offer(E e) {
         outStack.push(e);
     }
 
-    public E poll(){
-        if (outStack.isEmpty()){
-            while (!inStack.isEmpty()){
+    public E poll() {
+        if (outStack.isEmpty()) {
+            while (!inStack.isEmpty()) {
                 outStack.push(inStack.pop());
             }
         }
         return outStack.pop();
     }
 
-    public E peek(){
-        if (outStack.isEmpty()){
-            while (!inStack.isEmpty()){
+    public E peek() {
+        if (outStack.isEmpty()) {
+            while (!inStack.isEmpty()) {
                 outStack.push(inStack.pop());
             }
         }
         return outStack.peek();
+    }
+
+
+
+
+
+    public static void main(String[] args) {
+        TwoStackCompositeQueue test = new TwoStackCompositeQueue();
     }
 }
