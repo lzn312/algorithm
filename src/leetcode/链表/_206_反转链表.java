@@ -18,9 +18,11 @@ public class _206_反转链表 {
 
         @Override
         public String toString() {
+            ListNode curr = this;
             StringBuilder stringBuilder = new StringBuilder();
-            while (next != null){
+            while (curr.next != null){
                 stringBuilder.append(val).append(",");
+                curr = curr.next;
             }
             return stringBuilder.toString();
         }
