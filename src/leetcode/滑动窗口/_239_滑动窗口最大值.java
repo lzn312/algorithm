@@ -42,7 +42,6 @@ import java.util.*;
 public class _239_滑动窗口最大值 {
 
 
-    Deque<Integer> queue = new LinkedList<>();
     int[] nums ;
 
 
@@ -59,40 +58,32 @@ public class _239_滑动窗口最大值 {
             return nums;
         }
 
-        this.nums = nums;
-        int[] result  = new int[nums.length - k + 1];
-
-        result[0] = nums[0];
-        //算出第一个元素的值
+        Deque<Integer> queue = new LinkedList<>();
+        int[] res = new int[ nums.length - k + 1];
+        int cursor = 0;
+        res[cursor++] = nums[0];
+        queue.add(nums[0]);
+        // 先入队
         for (int i = 1; i < k; i++) {
-            cleanDeque(i, k);
-            queue.addLast(i);
-            if (nums[i] > result[0]) {
-                result[0] = nums[i];
-            }
+            res[0] = Math.max(res[0], nums[i]);
+            queue.add(nums[i]);
         }
 
+
+        // 后续只滑动一个值
         for (int i = k; i < nums.length; i++) {
-            cleanDeque(i, k);
-            // 把元素放到队列里面
-            queue.addLast(i);
-            result[ i - k + 1] = nums[queue.getFirst()];
-        }
-
-        return result;
-    }
-
-    private  void cleanDeque(int index, int slidLength) {
-        // 相等说明已经到头了，把头部元素移除
-        if (!queue.isEmpty() && queue.getFirst() == index - slidLength ) {
-            queue.removeFirst();
+            // 入队比较最大值
+            queue.pollFirst();
+            int curTemp = nums[i];
+            for (Integer next : queue) {
+                curTemp = Math.max(curTemp, next);
+            }
+            queue.add(nums[i]);
+            res[cursor++] = curTemp;
         }
 
 
-        while (!queue.isEmpty() && nums[index] > nums[queue.getLast()]) {
-            queue.removeLast();
-        }
-
+        return res;
     }
 
 
