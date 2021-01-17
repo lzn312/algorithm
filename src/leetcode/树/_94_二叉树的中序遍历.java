@@ -42,9 +42,7 @@ public class _94_二叉树的中序遍历 {
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
-        TreeNode right = new TreeNode(2);
-        right.right = new TreeNode(3);
-        root.right = right;
+//
 
         _94_二叉树的中序遍历 so = new _94_二叉树的中序遍历();
         List<Integer> integers = so.inorderTraversal(root);

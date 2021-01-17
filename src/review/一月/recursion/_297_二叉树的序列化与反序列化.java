@@ -1,8 +1,9 @@
-package leetcode.递归;
+package review.一月.recursion;
 
 import leetcode.树.TreeNode;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * 序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。
@@ -29,31 +30,30 @@ public class _297_二叉树的序列化与反序列化 {
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-
         if (root == null) {
             return "";
         }
 
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        StringBuilder str = new StringBuilder();
-        str.append('[');
-        while (!queue.isEmpty()) {
-            TreeNode node = queue.poll();
-            if (node != null) {
-                str.append(node.val);
-                queue.offer(node.left);
-                queue.offer(node.right);
-            } else {
-                str.append("null");
+        Queue<TreeNode> supQueue = new LinkedList<>();
+        supQueue.offer(root);
+        StringBuilder stb = new StringBuilder();
+        stb.append("[");
+        while (!supQueue.isEmpty()) {
+            TreeNode node = supQueue.poll();
+            if (node != null ){
+                stb.append(node.val);
+                supQueue.offer(node.left);
+                supQueue.offer(node.right);
+            }else {
+                stb.append("null");
             }
-
-            if (!queue.isEmpty()) {
-                str.append(',');
-            }
+            stb.append(",");
         }
-        str.append(']');
-        return str.toString();
+        if (stb.charAt(stb.length() -1 ) == ',') {
+            stb.deleteCharAt(stb.length() -1 );
+        }
+        stb.append("]");
+        return stb.toString();
     }
 
 
@@ -64,56 +64,42 @@ public class _297_二叉树的序列化与反序列化 {
         root.right = new TreeNode(3);
         root.right.left = new TreeNode(4);
         root.right.right = new TreeNode(5);
-//        String serialize = v.serialize(root);
-//        System.out.println(serialize);
-//        System.out.println(v.serialize(v.deserialize(serialize)));
-
-        List<Integer> result = new ArrayList<>();
-        v.innerInorderTraversal(result,v.deserialize("[3,5,1,6,2,0,8,null,null,7,4]") );
-
-        System.out.println(result);
+        String serialize = v.serialize(root);
+        System.out.println(serialize);
+        System.out.println(v.serialize(v.deserialize(serialize)));
     }
-
-    private void innerInorderTraversal(List<Integer> result ,TreeNode node){
-        if (node == null)return;
-        innerInorderTraversal(result, node.left);
-        innerInorderTraversal(result, node.right);
-        result.add(node.val);
-
-    }
-
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if (data.length() == 0) {
+        if (data.isEmpty()) {
             return null;
         }
+        String[] nodeStrArray = data.replace("[","").replace("]","").split(",");
+        TreeNode root = new TreeNode(Integer.parseInt(nodeStrArray[0]));
+        Queue<TreeNode> supNodeQueue = new LinkedList<>();
+        supNodeQueue.offer(root);
+
+        int curror= 1;
+        while (!supNodeQueue.isEmpty() && curror < nodeStrArray.length) {
 
 
-        String[] datas = data.substring(1, data.length() - 1).split(",");
-        TreeNode root = new TreeNode(Integer.parseInt(datas[0]));
+            TreeNode poll = supNodeQueue.poll();
 
-        Queue<TreeNode> queue  = new LinkedList<>();
-        queue.offer(root);
-        int curror = 1;
-
-        while (!queue.isEmpty() && curror < datas.length){
-            TreeNode poll = queue.poll();
-
-            String nodeLeftVal = datas[curror++];
+            String nodeLeftVal = nodeStrArray[curror++];
             if (!nodeLeftVal.equals("null")) {
                 TreeNode leftNode = new TreeNode(Integer.parseInt(nodeLeftVal));
                 poll.left = leftNode;
-                queue.offer(leftNode);
+                supNodeQueue.offer(leftNode);
             }
 
-            String rightNodeVal = datas[curror++];
-            if (!rightNodeVal.equals("null")){
+            String rightNodeVal = nodeStrArray[curror++];
+            if (!rightNodeVal.equals("null")) {
                 TreeNode right = new TreeNode(Integer.parseInt(rightNodeVal));
                 poll.right = right;
-                queue.offer(right);
+                supNodeQueue.offer(right);
             }
         }
+
 
         return root;
     }
