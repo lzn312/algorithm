@@ -53,4 +53,37 @@ public class _21_合并两个有序链表 {
     }
 
 
+
+    public ListNode mergeTwoLists1(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+
+        // 定义两个指针来进行合并
+        ListNode sentinelNode = new ListNode(-1);
+        ListNode currNode = sentinelNode;
+        while (l1 != null && l2 != null) {
+            ListNode tmpNode;
+            if (l1.val < l2.val) {
+               tmpNode = l1;
+               l1 = l1.next;
+            }else {
+                tmpNode = l2;
+                l2 = l2.next;
+            }
+            currNode.next = tmpNode;
+            currNode = currNode.next;
+        }
+        if (l1 != null) {
+            currNode.next = l1;
+        }
+        if (l2 != null) {
+            currNode.next = l2;
+        }
+        return sentinelNode.next;
+    }
+
 }

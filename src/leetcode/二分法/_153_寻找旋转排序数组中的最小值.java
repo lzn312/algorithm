@@ -42,6 +42,7 @@ public class _153_寻找旋转排序数组中的最小值 {
             int mid = left + ((right - left) >> 1);
             // 这种情况在左区间
             if (nums[mid] > nums[right]) {
+                // 因为比它大所以+1缩小区间,说明又更小的值
                 left = mid +1;
             }else {
                 right = mid;
@@ -52,9 +53,12 @@ public class _153_寻找旋转排序数组中的最小值 {
 
     }
 
+
+
+
     public static void main(String[] args) {
         _153_寻找旋转排序数组中的最小值 test = new _153_寻找旋转排序数组中的最小值();
-        System.out.println(test.findMin(new int[]{4,5,6,7,0,1,2}));
-        System.out.println(test.findMin(new int[]{3,4,5,6,1,2}));
+//        System.out.println(test.findMin(new int[]{4,5,6,7,0,1,2}));
+//        System.out.println(test.findMin(new int[]{3,4,5,6,1,2}));
     }
 }

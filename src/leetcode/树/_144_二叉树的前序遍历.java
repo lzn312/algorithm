@@ -8,6 +8,7 @@ import java.util.Stack;
  *https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
  **/
 public class _144_二叉树的前序遍历 {
+
     public List<Integer> preorderTraversal(TreeNode root) {
         // 递归太简单了 转换一下思想就是
         List<Integer> result = new ArrayList<>();
@@ -32,13 +33,15 @@ public class _144_二叉树的前序遍历 {
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
-        TreeNode right = new TreeNode(2);
-        right.right = new TreeNode(3);
-        root.right = right;
+        root.left = new TreeNode(2);
+        root.left.left = new TreeNode(3);
+        root.left.right = new TreeNode(4);
+        root.right = new TreeNode(5);
+        root.right.right = new TreeNode(6);
+
 
         _144_二叉树的前序遍历 so = new _144_二叉树的前序遍历();
         List<Integer> integers = so.preorderTraversal(root);
         System.out.println(integers);
-
     }
 }

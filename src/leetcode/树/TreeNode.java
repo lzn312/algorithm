@@ -12,9 +12,9 @@ public class TreeNode {
     @Override
     public String toString() {
         return "{" +
-                "val=" + val +
-                ", left=" + left +
-                ", right=" + right +
+                "\"val\":" + val +
+                ", \"left\":" + left +
+                ", \"right\":" + right +
                 '}';
     }
 }

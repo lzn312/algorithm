@@ -6,10 +6,10 @@ import java.util.List;
  * https://leetcode-cn.com/problems/reverse-linked-list/
  **/
 public class _206_反转链表 {
-    private ListNode listNode;
 
 
-     private class ListNode {
+
+     private static class ListNode {
         int val;
         ListNode next;
         ListNode(int x) {
@@ -18,13 +18,7 @@ public class _206_反转链表 {
 
         @Override
         public String toString() {
-            ListNode curr = this;
-            StringBuilder stringBuilder = new StringBuilder();
-            while (curr.next != null){
-                stringBuilder.append(val).append(",");
-                curr = curr.next;
-            }
-            return stringBuilder.toString();
+           return "{ val = " + val + ",next = "  + next + "}";
         }
     }
 
@@ -60,8 +54,37 @@ public class _206_反转链表 {
     }
 
 
+
+    public ListNode reverseNode(ListNode node ) {
+        if (node == null || node.next == null) {
+            return node;
+        }
+
+
+        ListNode currNode = null;
+        while (node != null) {
+
+            ListNode tmpNode = node.next;
+            node.next = currNode;
+            currNode = node;
+            node = tmpNode;
+        }
+
+        return currNode;
+
+    }
+
+
     public static void main(String[] args) {
         _206_反转链表 test = new _206_反转链表();
-        System.out.println(test.listNode);
+        ListNode root = new ListNode(1);
+        root.next = new ListNode(2);
+        root.next.next = new ListNode(3);
+        root.next .next.next= new ListNode(4);
+        root.next .next.next.next= new ListNode(5);
+        root.next .next.next.next.next= new ListNode(6);
+        root.next .next.next.next.next.next= new ListNode(7);
+
+        System.out.println(test.reverseNode(root));
     }
 }
