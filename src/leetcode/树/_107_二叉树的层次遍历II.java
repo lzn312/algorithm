@@ -27,7 +27,7 @@ import java.util.*;
 public class _107_二叉树的层次遍历II {
     //我第一想法是拿到正序的结果然后反过来排就是了 在考虑考虑
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> result = new LinkedList<>();
         if (root == null) return result;
         List<Integer> level = new ArrayList<>();
         int levelSize = 1;

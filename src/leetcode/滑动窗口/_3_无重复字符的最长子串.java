@@ -49,5 +49,35 @@ public class _3_无重复字符的最长子串 {
         return result;
     }
 
-    
+
+
+    public  static int lengthOfLongestSubstring1(String s) {
+        if (s.length() == 1 ) return 1;
+
+        int res = 0;
+        int left = 0;
+        int right = 0;
+        Map<Character, Integer> window = new HashMap<>();
+        while (right <= s.length() -1 ){
+            char r = s.charAt(right++);
+            window.put(r, window.getOrDefault(r,0) + 1);
+
+
+
+            while (window.get(r) > 1) {
+                char l = s.charAt(left++);
+                window.put(l, window.get(l) -1 );
+            }
+            res = Math.max(res, right - left);
+        }
+        return res;
+    }
+
+
+
+
+    public static void main(String[] args) {
+        System.out.println(lengthOfLongestSubstring1("cbacdcbc"));
+//        System.out.println(lengthOfLongestSubstring1("bbbbbbbbbbbbbb"));
+    }
 }

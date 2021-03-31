@@ -55,16 +55,36 @@ public class _122_买卖股票的最佳时机II {
         return maxProfit;
     }
 
+
+
+    public static  int maxProfit1(int[] prices) {
+
+        if (prices.length < 2) return 0;
+
+        int[][] dp = new int[prices.length][2];
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+
+
+        for (int i = 1; i < prices.length; i++) {
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] - prices[i]);
+        }
+        return dp[prices.length-1][0];
+    }
+
     public static void main(String[] args) {
+//
+//        int[] prices = {1,2,3,4,5};
+//        int[] prices1 = {7,6,4,3,1};
+//        int[] prices2 = {7,1,5,3,6,4};
+//
+//
+//        System.out.println(maxProfit(prices));
+//        System.out.println(maxProfit(prices1));
+//        System.out.println(maxProfit(prices2));
 
-        int[] prices = {1,2,3,4,5};
-        int[] prices1 = {7,6,4,3,1};
-        int[] prices2 = {7,1,5,3,6,4};
-
-
-        System.out.println(maxProfit(prices));
-        System.out.println(maxProfit(prices1));
-        System.out.println(maxProfit(prices2));
+        System.out.println(Integer.toBinaryString(Integer.MIN_VALUE+1));
 
     }
 }

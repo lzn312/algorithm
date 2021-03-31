@@ -109,9 +109,42 @@ public class _102_二叉树的层序遍历 {
     }
 
 
-    public static void main(String[] args) {
-        TreeNode root = new TreeNode(1);
+    public List<List<Integer>> levelOrder2(TreeNode root ){
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
 
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            List<Integer> curRes = new ArrayList<>(size);
+            for (int i = 0; i < size; i++){
+                TreeNode node = queue.poll();
+                curRes.add(node.val);
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+            res.add(curRes);
+        }
+
+        return res;
 
     }
+
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+    }
+
+
+
+
+
+
 }

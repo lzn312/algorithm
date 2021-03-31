@@ -44,9 +44,27 @@ public class _69_x的平方根 {
         return (int) left;
     }
 
+
+    private  int reviewMySqrt(int x) {
+        if (x == 0 ) return  0;
+        long left =1;
+        long right = x ;
+        long   ans = -1;
+        while (left < right) {
+            long mid = left + ((right - left) >> 1);
+            if (mid > x / mid) {
+                right = mid -1;
+            } else {
+                ans = mid;
+                left = mid + 1;
+            }
+        }
+        return (int) ans;
+    }
+
     public static void main(String[] args) {
         _69_x的平方根  test = new _69_x的平方根();
-        System.out.println(test.mySqrt(8));
+        System.out.println(test.reviewMySqrt(8));
         System.out.println(test.mySqrt(6));
     }
 }

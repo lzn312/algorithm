@@ -45,6 +45,7 @@ public class _20_有效的括号 {
                 Character c1 = stack.pop();
                 if (c != characterHashMap.get(c1)) return false;
             }
+
         }
 
         return stack.isEmpty();

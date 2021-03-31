@@ -33,6 +33,18 @@ public class _206_反转链表 {
         return newHead;
     }
 
+    private ListNode reverse(ListNode head, ListNode end){
+         ListNode prev = null;
+         ListNode cur = head;
+         while (cur != end) {
+             ListNode nxt = cur.next;
+             cur.next = prev;
+             prev = cur;
+             cur = nxt;
+         }
+         return prev;
+    }
+
 
     public ListNode reverseList1(ListNode head) {
         // 使用哨兵节点来完成
@@ -61,16 +73,7 @@ public class _206_反转链表 {
         }
 
 
-        ListNode currNode = null;
-        while (node != null) {
-
-            ListNode tmpNode = node.next;
-            node.next = currNode;
-            currNode = node;
-            node = tmpNode;
-        }
-
-        return currNode;
+        return reverse(node, null);
 
     }
 

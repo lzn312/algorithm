@@ -64,6 +64,28 @@ public class _4_寻找两个正序数组的中位数 {
     }
 
 
+    public  static double findMedianSortedArrays1(int[] nums1, int[] nums2) {
+        int n1 = nums1.length  ;
+        int n2 = nums2.length ;
+        int len = n1 + n2;
+        int tmpVal = -1;
+        int nextVal = -1;
+        int n1Index =0;
+        int n2Index = 0;
+        for (int i = 0; i <= (len >> 1); i++) {
+            tmpVal  = nextVal;
+            if (n1Index < n1 && (n2Index >= n2 || nums1[n1Index] < nums2[n2Index])) {
+                nextVal = nums1[n1Index++];
+            }else {
+                nextVal = nums2[n2Index++];
+            }
+        }
+        if ((len & 1) == 0){
+            return (tmpVal+ nextVal) / 2.0;
+        }
+        return nextVal;
+    }
+
     public static void main(String[] args) {
 
         int[] nums1 = new int[]{-1,1,3,5,7,9};
@@ -71,8 +93,8 @@ public class _4_寻找两个正序数组的中位数 {
         int[] nums2 = new int[]{2,4,6,8,10,12,14,16};
 
 
-//        System.out.println(findMedianSortedArrays(nums1, nums2));
-        System.out.println(findMedianSortedArrays(new int[]{1,3}, new int[]{2}));
+        System.out.println(findMedianSortedArrays1(nums1, nums2));
+        System.out.println(findMedianSortedArrays1(new int[]{1,3}, new int[]{2}));
 
     }
 

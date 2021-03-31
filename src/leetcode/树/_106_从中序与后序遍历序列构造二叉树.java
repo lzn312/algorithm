@@ -48,4 +48,67 @@ public class _106_从中序与后序遍历序列构造二叉树 {
         treeNode.right = buildTreeHelper(postorder, postStopIndex - inorderStopIndex + inorderRootIndex - 1 + 1, postStopIndex -1 , inorder,inorderRootIndex + 1  ,  inorderStopIndex);
         return treeNode;
     }
+
+
+
+    public static TreeNode buildTree1(int[] inorder, int[] postorder) {
+        if (postorder.length == 0 || inorder.length == 0)
+            return null;
+
+        return innerBuildTree(postorder, 0 , postorder.length -1,inorder, 0, inorder.length -1);
+    }
+
+    private static TreeNode innerBuildTree(int[] preorder, int preOrderStart, int preOrderEnd, int[] inorder, int inorderStart, int inorderEnd) {
+        // baseCase
+        if (preOrderStart > preOrderEnd) return null;
+        // 找出值
+        int rootVal =  preorder[preOrderEnd];
+        int index = 0;
+        for (int i = inorderStart; i <= inorderEnd; i++) {
+            if (inorder[i] == rootVal) {
+                index = i;
+                break;
+            }
+        }
+        int leftSize = index - inorderStart;
+        TreeNode node = new TreeNode(rootVal);
+        node.left = innerBuildTree(preorder, preOrderStart , preOrderStart + leftSize -1,
+                inorder, inorderStart , index - 1);
+        node.right = innerBuildTree(preorder, preOrderStart + leftSize , preOrderEnd -1 ,
+                inorder, index + 1 , inorderEnd);
+        return  node;
+    }
+
+    static TreeNode build(int[] inorder, int inStart, int inEnd,
+                  int[] postorder, int postStart, int postEnd) {
+
+        if (inStart > inEnd) {
+            return null;
+        }
+        // root 节点对应的值就是后序遍历数组的最后一个元素
+        int rootVal = postorder[postEnd];
+        // rootVal 在中序遍历数组中的索引
+        int index = 0;
+        for (int i = inStart; i <= inEnd; i++) {
+            if (inorder[i] == rootVal) {
+                index = i;
+                break;
+            }
+        }
+        // 左子树的节点个数
+        int leftSize = index - inStart;
+        TreeNode root = new TreeNode(rootVal);
+        // 递归构造左右子树
+        root.left = build(inorder, inStart, index - 1,
+                postorder, postStart, postStart + leftSize - 1);
+
+        root.right = build(inorder, index + 1, inEnd,
+                postorder, postStart + leftSize, postEnd - 1);
+        return root;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(buildTree1(new int[]{9,3,15,20,7},
+                new int[]{9,15,7,20,3}));
+    }
 }

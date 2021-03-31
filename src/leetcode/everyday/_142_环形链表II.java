@@ -58,6 +58,31 @@ public class _142_环形链表II {
 
     }
 
+    public ListNode detectCycle1(ListNode head) {
+        // base case
+        if (head == null || head.next == null) return null;
+
+        ListNode slow,fast;
+        slow = fast = head;
+
+        boolean hasCycle = false;
+        while (fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow){
+                hasCycle = true;
+                break;
+            }
+        }
+        if (!hasCycle) return null;
+
+        fast = head;
+        while (slow != fast){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return fast;
+    }
     public static void main(String[] args) {
         ListNode head = new ListNode(3);
         ListNode head1 = new ListNode(2);
@@ -70,20 +95,21 @@ public class _142_环形链表II {
         head2.setNext(head3);
         head3.setNext(head1);
 
-        ListNode h = new ListNode(1);
-        ListNode h1 = new ListNode(2);
-
-        h.setNext(h1);
-
-
-        head.setNext(head1);
-        head1.setNext(head2);
-        head2.setNext(head3);
-        head3.setNext(head1);
+//        ListNode h = new ListNode(1);
+//        ListNode h1 = new ListNode(2);
+//
+//        h.setNext(h1);
+//
+//
+//        head.setNext(head1);
+//        head1.setNext(head2);
+//        head2.setNext(head3);
+//        head3.setNext(head1);
         _142_环形链表II test = new _142_环形链表II();
 
 //        System.out.println(test.detectCycle(head).val);
-        System.out.println(test.detectCycle(h).val);
+        System.out.println(test.detectCycle(head).val);
+        System.out.println(test.detectCycle1(head).val);
 
     }
 }

@@ -7,8 +7,8 @@ import java.util.Map;
  * https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
  **/
 public class _105_从前序与中序遍历序列构造二叉树 {
-    private static Map<Integer, Integer> map = new HashMap<>();
-    // [4,2,1,3,6,5]+[1,2,3,4,5,6]
+//    前序遍历 preorder = [3,9,20,15,7]
+//    中序遍历 inorder = [9,3,15,20,7]
     // 知道前序和中序可以构建二叉树
 
     /**
@@ -16,40 +16,33 @@ public class _105_从前序与中序遍历序列构造二叉树 {
      * 要确定左右子树的范围边界然后在递归
      * 我们需要读取inorder的具体位置，为了快速确定root_val的位置可以考虑使用map结构快速获取下标
      **/
-    public TreeNode buildTree(int[] preorder, int[] inorder) {
-        if (preorder.length == 0 || inorder.length == 0)
-            return null;
-        for (int i = 0; i < inorder.length; i++) {
-            map.put(inorder[i], i);
-        }
-        // 构建递归函数
-        return buildTreeHelper(preorder, 0, preorder.length, inorder, 0, inorder.length);
+
+    public static void main(String[] args) {
+        _105_从前序与中序遍历序列构造二叉树 test = new _105_从前序与中序遍历序列构造二叉树();
+        System.out.println(test.buildTree(new int[]{3,9,20,15,7},new int[]{9,3,15,20,7}));
     }
 
-    /**
-     * @param preorder          前序数组
-     * @param preStartIndex     前序开始下标
-     * @param preStopIndex      前序遍历截止下标
-     * @param inorder           中序数组
-     * @param inorderStartIndex 中序遍历开始下标
-     * @param inorderStopIndex  中序遍历截止下标
-     * @return TreeNode
-     **/
-    private TreeNode buildTreeHelper(int[] preorder, int preStartIndex, int preStopIndex, int[] inorder, int inorderStartIndex, int inorderStopIndex) {
-        // 确定终止条件 当遍历下标指向都一样就停止遍历
-        if (inorderStartIndex == inorderStopIndex) return null;
-        // 得到根节点的值
-        int val = preorder[preStartIndex];
-        TreeNode treeNode = new TreeNode(val);
-        // 获取根节点在中序数组index
-        int inorderRootIndex = map.get(val);
-        // 相减得到左节点数量
-        int leftNum = inorderRootIndex - inorderStartIndex;
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return innerBuildTree(preorder, 0, preorder.length -1 , inorder, 0, inorder.length -1);
+    }
 
-        // 开始递归
-        treeNode.left = buildTreeHelper(preorder, preStartIndex + 1, preStartIndex + 1 + leftNum ,inorder, inorderStartIndex, inorderRootIndex);
-        treeNode.right = buildTreeHelper(preorder, preStartIndex + 1 + leftNum, preStopIndex, inorder, inorderRootIndex + 1, inorderStopIndex);
-        return treeNode;
+    private TreeNode innerBuildTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd) {
+        if (preStart > preEnd) return null;
+        int val = preorder[preStart];
+        int index = inStart;
+        for (int i = inStart; i <= inEnd; i++) {
+            if (inorder[i] == val) {
+                index = i;
+                break;
+            }
+        }
+        int size = index - inStart;
+
+        TreeNode node = new TreeNode();
+        node.val = val;
+        node.left = innerBuildTree(preorder, preStart + 1, preStart + size, inorder, inStart, index -1 );
+        node.right = innerBuildTree(preorder, preStart + size + 1, preEnd, inorder, index + 1, inEnd);
+        return node;
     }
 
 //    buildTreeHelper(preorder, preStartIndex, preStopIndex,inorder, inorderStartIndex, inorderStopIndex);

@@ -31,6 +31,20 @@ public class _144_二叉树的前序遍历 {
         return result;
     }
 
+    List<Integer> res = new ArrayList<>();
+    public List<Integer> preorderTraversal1(TreeNode root) {
+        innerPreOrder(root);
+        return  res;
+
+    }
+
+    private void innerPreOrder(TreeNode node) {
+        if (node == null) return;
+        res.add(node.val);
+        innerPreOrder(node.left);
+        innerPreOrder(node.right);
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
@@ -41,7 +55,7 @@ public class _144_二叉树的前序遍历 {
 
 
         _144_二叉树的前序遍历 so = new _144_二叉树的前序遍历();
-        List<Integer> integers = so.preorderTraversal(root);
+        List<Integer> integers = so.preorderTraversal1(root);
         System.out.println(integers);
     }
 }

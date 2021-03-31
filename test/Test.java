@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Test {
 
@@ -41,37 +43,38 @@ public class Test {
     }
 
 
+    private static AtomicInteger ai = new AtomicInteger(0);
     public static void main(String[] args) {
+        int num  = 100;
 
         new Thread(()->{
 
-            while ( true ){
-                int localFlag = flag;
-                System.out.println("当前标志位：flag值为：" + localFlag + " =====> "+ "timeStamp : " +
-                        System.currentTimeMillis());
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
         }).start();
 
         new Thread( () ->{
 
-            int localFlag = flag;
-            while (true){
-                localFlag += 1;
-                flag = localFlag;
-                System.out.println("修改标志位数据:" + localFlag +"=====>"+ "timeStamp : " +
-                        System.currentTimeMillis());
-
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
         }).start();
+    }
+
+
+    class TestSemaphore implements Runnable{
+
+        private Semaphore sp;
+
+        public TestSemaphore(Semaphore sp) {
+            this.sp = sp;
+        }
+
+        @Override
+        public void run() {
+            try {
+                System.out.println("=======>开始执行方法");
+                int val = ai.incrementAndGet();
+                sp.acquire();
+                System.out.println("=======>执行结束方法");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

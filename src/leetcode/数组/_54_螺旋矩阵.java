@@ -79,12 +79,56 @@ public class _54_螺旋矩阵 {
     }
 
 
+    public List<Integer> spiralOrder1(int[][] matrix) {
+        int left,right,up,down;
+        int leftCursor,upCurSor;
+        leftCursor = upCurSor = 0;
+        up = left = 0;
+        right = matrix[0].length - 1;
+        down = matrix.length -1;
+        List<Integer> res = new ArrayList<>((right + 1) * (down + 1));
+        while (left <= right && up <= down) {
+            // 先往左边遍历
+            for (leftCursor = left; leftCursor <= right && avoid(up, down, left, right); leftCursor++) {
+                res.add(matrix[upCurSor][leftCursor]);
+            }
+            // 遍历完一行，up向下移，因为上述躲了一下left++ 所以需要减掉；
+            up++;
+            leftCursor--;
+
+
+            for (upCurSor = up; upCurSor <= down && avoid(up, down, left, right); upCurSor++) {
+                res.add(matrix[upCurSor][leftCursor]);
+            }
+
+            // 往左遍历
+            right--;
+            upCurSor--;
+
+            for (leftCursor = right; leftCursor >=  left && avoid(up, down, left, right); leftCursor--) {
+                res.add(matrix[upCurSor][leftCursor]);
+            }
+            // 往上遍历
+            leftCursor++;
+            down--;
+            for (upCurSor = down; upCurSor >=  up && avoid(up, down, left, right); upCurSor--) {
+                res.add(matrix[upCurSor][leftCursor]);
+            }
+            upCurSor++;
+            left++;
+
+        }
+
+        return res;
+    }
+
+
     public static void main(String[] args) {
         _54_螺旋矩阵 test = new _54_螺旋矩阵();
         int[][] ac = new int[3][3];
         ac[0] = new int[]{1,2,3};
         ac[1] = new int[]{4,5,6};
         ac[2] = new int[]{7,8,9};
-        System.out.println(test.spiralOrder(ac));
+        System.out.println(test.spiralOrder1(ac));
     }
 }

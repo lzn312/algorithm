@@ -14,7 +14,6 @@ public class _200_岛屿数量 {
             return 0;
         }
 
-
         // 记录岛屿数量
         int res = 0;
         Queue<int[]> buffQueue = new LinkedList<>();
