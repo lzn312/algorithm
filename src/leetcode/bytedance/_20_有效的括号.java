@@ -60,7 +60,7 @@ public class _20_有效的括号 {
                     }
                 }
             }
-            return true;
+            return stack.isEmpty();
 
         }
 

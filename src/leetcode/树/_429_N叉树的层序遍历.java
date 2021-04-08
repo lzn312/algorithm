@@ -45,7 +45,7 @@ public class _429_N叉树的层序遍历 {
     private void bfs(List<List<Integer>> res, Node node, Integer levelSize) {
 
         // 构建新的数据
-        if (res.size() == levelSize){
+        if (res.size() == levelSize) {
             res.add(new ArrayList<>());
         }
         res.get(levelSize).add(node.val);

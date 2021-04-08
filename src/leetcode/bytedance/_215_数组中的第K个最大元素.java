@@ -36,8 +36,21 @@ public class _215_数组中的第K个最大元素 {
         return queue.peek();
     }
 
+
+    public static  int find2thLargest(int[] nums) {
+        PriorityQueue<int[]> queue = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+        for (int i = 0; i < nums.length; i++) {
+            queue.add(new int[]{nums[i], i});
+            if (queue.size() > 2) {
+                queue.poll();
+            }
+        }
+        return queue.peek()[1];
+    }
+
     public static void main(String[] args) {
         _215_数组中的第K个最大元素 test = new _215_数组中的第K个最大元素();
         System.out.println(test.findKthLargest(new int[]{3, 2, 1, 4, 5, 6}, 2));
+        System.out.println(test.find2thLargest(new int[]{3, 2, 1, 4, 5, 6}));
     }
 }

@@ -1,5 +1,7 @@
 package leetcode.动态规划;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
  * <p>
@@ -49,5 +51,24 @@ public class _53_最大子序和 {
 
         // 找到最大值
         return result;
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+
+        CountDownLatch cdt = new CountDownLatch(1);
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(10000);
+                cdt.countDown();
+                System.out.println("线程执行完成.....");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+
+        cdt.await();
+        System.out.println("执行结束..... ");
     }
 }

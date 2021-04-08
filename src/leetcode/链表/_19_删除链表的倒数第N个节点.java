@@ -2,6 +2,11 @@ package leetcode.链表;
 
 import leetcode.top100.middle.ListNode;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 /**
  * @author Leezer
  * @date 2020/10/19 9:42 上午
@@ -61,5 +66,29 @@ public class _19_删除链表的倒数第N个节点 {
 
 
 
+
+    public String multiply(String num1, String num2) {
+        int n1Len = num1.length() -1;
+        int n2Len = num2.length() -1;
+        int overFlow =0;
+
+        StringBuilder stb = new StringBuilder();
+        while (n1Len >= 0 || n2Len >= 0) {
+            int n1 = n1Len <0 ? 1 : num1.charAt(n1Len--) - '0';
+            int n2 = n2Len <0 ? 1 : num2.charAt(n2Len--) - '0';
+            int tmpVal = (n1 * n2) + overFlow;
+            overFlow = tmpVal / 10;
+            stb.append(tmpVal % 10);
+        }
+        if (overFlow > 0) stb.append(overFlow);
+        return stb.reverse().toString();
+
+    }
+
+
+    public static void main(String[] args) {
+        _19_删除链表的倒数第N个节点 test = new _19_删除链表的倒数第N个节点();
+        System.out.println(test.multiply("123", "456"));
+    }
 
 }

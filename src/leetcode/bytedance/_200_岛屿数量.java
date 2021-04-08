@@ -69,8 +69,11 @@ public class _200_岛屿数量 {
             column = tuple[0];
             row = tuple[1];
 
-            if (column >= 0 && column<grid.length && row >= 0 && row < grid[0].length &&
-              grid[column][row] == '1') {
+            if (column >= 0
+                    && column<grid.length
+                    && row >= 0
+                    && row < grid[0].length
+                    && grid[column][row] == '1') {
                 grid[column][row] = '0';
                 queue.offer(new int[]{column+1, row});
                 queue.offer(new int[]{column-1, row});
